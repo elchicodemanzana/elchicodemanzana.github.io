@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Form</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h2>Login Page</h2><br>
+    <div class="login">
+        <form id="loginForm" method="get" action="login.php">
+            <label><b>User Name</b></label>
+            <input type="text" name="Uname" id="Uname" placeholder="Username" value="piratesite">
+            <br><br>
+            <label><b>Password</b></label>
+            <input type="password" name="Pass" id="Pass" placeholder="Password" value="DomanuAlkoholik1@@">
+            <br><br>
+            <input type="submit" value="Log In Here">
+            <br><br>
+            <input type="checkbox" id="check">
+            <span>Remember me</span>
+            <br><br>
+            Forgot <a href="#">Password</a>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get the username and password from the form
+            const username = document.getElementById("Uname").value;
+            const password = document.getElementById("Pass").value;
+
+            // Here, you can add logic to validate the username and password
+            // For simplicity, let's just log the values to the console
+            console.log("Username: " + username);
+            console.log("Password: " + password);
+
+            // Redirect to the player.html page after logging in
+            window.location.href = "player.html"; // Update with your desired page URL
+        });
+    </script>
+</body>
+</html>
