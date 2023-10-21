@@ -31,6 +31,22 @@ body{
 </head>
 <div id="player"></div>
 <script>
+    (function() {
+    var cors_api_host = 'cors-anywhere.herokuapp.com';
+    var cors_api_url = 'https://' + cors_api_host + '/';
+    var slice = [].slice;
+    var origin = window.location.protocol + '//' + window.location.host;
+    var open = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function() {
+        var args = slice.call(arguments);
+        var targetOrigin = /^https?:\/\/([^\/]+)/i.exec(args[1]);
+        if (targetOrigin && targetOrigin[0].toLowerCase() !== origin &&
+            targetOrigin[1] !== cors_api_host) {
+            args[1] = cors_api_url + args[1];
+        }
+        return open.apply(this, args);
+    };
+})();
 var player = new Clappr.Player({
         source: 'https://nwt528dc4ef17d725ed.playlive.net/wmt:MTg4MDI4Mg.eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IlByaW1lLTEzLUwifQ.eyJpc3MiOiJzdHJlYW1vbmxpbmUiLCJ3bXZlciI6MSwid21wYXRmbXQiOiJiYXNlNjQiLCJ3bXBhdCI6Ikh5U2RlRUZwZjMyakcxakVGYjZ3c1F1WTRTZ0FNY0FsaEVrdXM0a0JYM3hOalFDOEhERFBUUTVPS3JjSmJpRFB5VEM0N0dhSVVlSnZDeGVJSGFzYyt3PT0iLCJ3bXBhdGxlbiI6NTEyLCJhY2Nlc3NUb2tlblNlc3Npb25JZCI6IjE4ODAyODIiLCJpYXQiOjE2OTc5MDg5NDMsImV4cCI6MTY5NzkzNzc0M30.R9qjng-fryHCg159cZrSwrXDjYEjeNJvtGP5Mts32uc/out/v1/f7cb0ab43014446bbded6558a23beaad/index.mpd',
         mimeType: 'application/dash+xml',
